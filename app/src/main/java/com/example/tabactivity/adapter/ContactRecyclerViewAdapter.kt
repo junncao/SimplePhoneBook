@@ -10,7 +10,9 @@ import com.example.tabactivity.R
 import com.example.tabactivity.database.Contact
 
 
-class ContactRecyclerViewAdapter(private val contactsData: List<Contact>): RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder>() {
+class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder>() {
+
+    lateinit var contactsData: List<Contact>
     class ContactViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val item: View =view
         val image: ImageView = view.findViewById(R.id.contact_image)
@@ -29,6 +31,11 @@ class ContactRecyclerViewAdapter(private val contactsData: List<Contact>): Recyc
 
     }
 
+
+    fun setData(contactList: List<Contact>){
+        this.contactsData = contactList
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.contact_item, parent, false)

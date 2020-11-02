@@ -9,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface ContactDao {
     @Query("SELECT * FROM contacts_table")
-    fun getAll(): List<Contact>
+    fun getAll(): LiveData<List<Contact>>
 
 
     @Query("SELECT * FROM contacts_table WHERE name LIKE :name")
