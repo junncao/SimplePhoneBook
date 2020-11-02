@@ -36,10 +36,7 @@ class RecordFragment : Fragment() {
         , CallLog.Calls.DURATION // 通话时长
         , CallLog.Calls.TYPE
     ) // 通话类型}
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

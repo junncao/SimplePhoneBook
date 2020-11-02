@@ -31,7 +31,8 @@ class ContactAddDialogFragment : DialogFragment(){
             if(name.isEmpty() || (personal_number.isEmpty() && work_number.isEmpty() && home_number.isEmpty())){
                 Toast.makeText(context,"请输入正确的格式！",Toast.LENGTH_SHORT)
             }else{
-                Log.d("Dialog","name:$name personal number:$personal_number")
+                Log.d("Dialog","name:$name personal number:$personal_number" +
+                        "work_numer:$work_number home_number:$home_number")
                 db.contactDao.insert(Contact(name,personal_number,work_number, home_number))
                 dismiss()
             }

@@ -30,7 +30,7 @@ class RecordRecyclerViewAdapter(private val recordData:ArrayList<Record>): Recyc
                 else -> "Unknown"
             }
             duration.text = record.duration.toString()+"秒"
-            location.text = "Undo"
+            location.text = "Location"
 
             item.setOnClickListener{
 

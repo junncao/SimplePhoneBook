@@ -1,5 +1,6 @@
 package com.example.phonebook.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,19 @@ class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdap
 
         fun bind(contact: Contact) {
             name.text = contact.name
-            number.text = contact.personal_number
+
+            if (contact.personal_number.isNullOrEmpty()){
+                if (contact.work_number.isNullOrEmpty()){
+                    number.text = contact.home_number
+                }else{
+                    number.text = contact.work_number
+                }
+            }else{
+                number.text = contact.personal_number
+            }
+
+
+
             item.setOnClickListener{
 
             }
@@ -39,8 +52,6 @@ class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.contact_item, parent, false)
-        // set the view's size, margins, paddings and layout parameters
-
         return ContactViewHolder(view)
     }
 
