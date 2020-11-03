@@ -1,4 +1,4 @@
-package com.example.tabactivity.database
+package com.example.tabactivity.beanclass
 
 data class Record(
     val name:String?,

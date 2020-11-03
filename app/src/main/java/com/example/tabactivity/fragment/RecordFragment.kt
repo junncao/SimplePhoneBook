@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phonebook.adapter.RecordRecyclerViewAdapter
 import com.example.tabactivity.R
-import com.example.tabactivity.database.Record
+import com.example.tabactivity.beanclass.Record
 import java.util.*
 
 

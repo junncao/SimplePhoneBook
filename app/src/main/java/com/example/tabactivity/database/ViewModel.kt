@@ -3,6 +3,7 @@ package com.example.tabactivity.database
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.example.tabactivity.beanclass.Contact
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var database: AppDatabase

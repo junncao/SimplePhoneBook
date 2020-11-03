@@ -9,10 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.room.Room
 import com.example.tabactivity.R
 import com.example.tabactivity.database.AppDatabase
-import com.example.tabactivity.database.Contact
+import com.example.tabactivity.beanclass.Contact
 
 class ContactAddDialogFragment : DialogFragment(){
 
@@ -44,9 +43,5 @@ class ContactAddDialogFragment : DialogFragment(){
         return builder.create();
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
 }

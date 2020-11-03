@@ -1,4 +1,4 @@
-package com.example.tabactivity.database
+package com.example.tabactivity.beanclass
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

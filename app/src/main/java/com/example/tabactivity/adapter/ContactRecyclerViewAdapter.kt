@@ -1,17 +1,18 @@
 package com.example.phonebook.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabactivity.R
-import com.example.tabactivity.database.Contact
+import com.example.tabactivity.beanclass.Contact
+import com.example.tabactivity.fragment.ContactDetailDialogFragment
 
 
-class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder>() {
+class ContactRecyclerViewAdapter(val parentFragmentManager: FragmentManager): RecyclerView.Adapter<ContactRecyclerViewAdapter.ContactViewHolder>() {
 
     lateinit var contactsData: List<Contact>
     class ContactViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -20,7 +21,7 @@ class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdap
         val name: TextView = view.findViewById(R.id.contact_name)
         val number: TextView = view.findViewById(R.id.contact_number)
 
-        fun bind(contact: Contact) {
+        fun bind(contact: Contact,parentFragmentManager: FragmentManager) {
             name.text = contact.name
 
             if (contact.personal_number.isNullOrEmpty()){
@@ -36,7 +37,8 @@ class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdap
 
 
             item.setOnClickListener{
-
+                val contactDetailDialogFragment = ContactDetailDialogFragment(contact)
+                contactDetailDialogFragment.show(parentFragmentManager,"Detail Contact")
             }
 
         }
@@ -55,7 +57,9 @@ class ContactRecyclerViewAdapter(): RecyclerView.Adapter<ContactRecyclerViewAdap
         return ContactViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) = holder.bind(contactsData.get(position))
+    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) = holder.bind(
+        contactsData.get(position),parentFragmentManager
+    )
 
     override fun getItemCount(): Int = contactsData.size
 }

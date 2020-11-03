@@ -1,19 +1,13 @@
 package com.example.phonebook.adapter
 
-import android.graphics.Region
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabactivity.R
-import com.example.tabactivity.database.Record
+import com.example.tabactivity.beanclass.Record
 import com.example.tabactivity.database.RegionQuery
-import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
-import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder
-import java.util.*
 import kotlin.collections.ArrayList
 
 

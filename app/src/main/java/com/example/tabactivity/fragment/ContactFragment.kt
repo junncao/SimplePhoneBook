@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phonebook.adapter.ContactRecyclerViewAdapter
-import com.example.phonebook.adapter.RecordRecyclerViewAdapter
 import com.example.tabactivity.R
-import com.example.tabactivity.database.AppDatabase
-import com.example.tabactivity.database.Contact
+import com.example.tabactivity.beanclass.Contact
 import com.example.tabactivity.database.ViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_contact.*
 
 
@@ -38,7 +34,7 @@ class ContactFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_contact, container, false)
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ContactRecyclerViewAdapter()
+        viewAdapter = ContactRecyclerViewAdapter(parentFragmentManager)
         recyclerView = root.findViewById<RecyclerView>(R.id.contacts_recyclerview).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -54,6 +50,7 @@ class ContactFragment : Fragment() {
             val editDialog = ContactAddDialogFragment()
             editDialog.show(parentFragmentManager,"Add Contact")
         }
+
         viewModel = ViewModelProviders.of(activity!!).get(ViewModel::class.java)
         (viewModel as ViewModel).getContacts().observe(viewLifecycleOwner){
             if (it.size>0){
