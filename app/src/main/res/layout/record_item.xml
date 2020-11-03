@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/duration_record"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/location_record"

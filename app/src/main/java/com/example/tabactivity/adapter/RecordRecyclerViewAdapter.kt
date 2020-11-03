@@ -1,15 +1,23 @@
 package com.example.phonebook.adapter
 
+import android.graphics.Region
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.tabactivity.R
 import com.example.tabactivity.database.Record
+import com.example.tabactivity.database.RegionQuery
+import com.google.i18n.phonenumbers.NumberParseException
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
+import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder
+import java.util.*
+import kotlin.collections.ArrayList
 
-class RecordRecyclerViewAdapter(private val recordData:ArrayList<Record>): RecyclerView.Adapter<RecordRecyclerViewAdapter.RecordViewHolder>() {
+
+class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>): RecyclerView.Adapter<RecordRecyclerViewAdapter.RecordViewHolder>() {
     class RecordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val item: View =view
         val name: TextView = view.findViewById(R.id.name_record)
@@ -30,7 +38,9 @@ class RecordRecyclerViewAdapter(private val recordData:ArrayList<Record>): Recyc
                 else -> "Unknown"
             }
             duration.text = record.duration.toString()+"秒"
-            location.text = "Location"
+
+
+            location.text = RegionQuery.getReferenceRegion(record.number)
 
             item.setOnClickListener{
 
@@ -52,4 +62,6 @@ class RecordRecyclerViewAdapter(private val recordData:ArrayList<Record>): Recyc
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) = holder.bind(recordData[position])
 
     override fun getItemCount(): Int = recordData.size
+
+
 }

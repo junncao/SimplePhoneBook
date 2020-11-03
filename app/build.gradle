@@ -50,5 +50,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.permissionx.guolindev:permissionx:1.4.0'
-
+    // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
+    implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.12'
+    // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/geocoder
+    implementation group: 'com.googlecode.libphonenumber', name: 'geocoder', version: '2.148'
 }
