@@ -18,6 +18,9 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     fun insertContact(contact: Contact){
         database.contactDao.insert(contact)
     }
+    fun deleteContact(contact: Contact){
+        database.contactDao.delete(contact)
+    }
 
 
 
