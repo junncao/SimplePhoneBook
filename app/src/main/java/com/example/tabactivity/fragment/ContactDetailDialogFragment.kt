@@ -1,24 +1,21 @@
 package com.example.tabactivity.fragment
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.tabactivity.R
 import com.example.tabactivity.beanclass.Contact
-import com.example.tabactivity.database.AppDatabase
 import com.example.tabactivity.database.ViewModel
 
 
 class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
     lateinit var viewModel: ViewModel
-
 
     lateinit var name_view: EditText
     lateinit var personal_number_view: EditText
@@ -46,22 +43,19 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
 
         personal_number_view?.apply {
             setText("${contact.personal_number}")
-            inputType = InputType.TYPE_NULL
             background = null
         }
+
         work_number_view?.apply {
             setText("${contact.work_number}")
-            inputType = InputType.TYPE_NULL
             background = null
         }
         home_number_view?.apply {
             setText("${contact.home_number}")
-            inputType = InputType.TYPE_NULL
             background = null
         }
         name_view?.apply {
             setText("${contact.name}")
-            inputType = InputType.TYPE_NULL
             background = null
         }
 
@@ -71,21 +65,18 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
                 right_btn?.visibility = View.VISIBLE
 
                 personal_number_view?.apply {
-                    inputType = InputType.TYPE_CLASS_TEXT
+
                     background = originBackground
                 }
                 work_number_view?.apply {
-                    inputType = InputType.TYPE_CLASS_TEXT
                     background = originBackground
 
                 }
                 home_number_view?.apply {
-                    inputType = InputType.TYPE_CLASS_TEXT
                     background = originBackground
 
                 }
                 name_view?.apply {
-                    inputType = InputType.TYPE_CLASS_TEXT
                     background = originBackground
 
                 }
@@ -105,7 +96,12 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
 
                 viewModel.deleteContact(contact)
 
-                val modifiedContact = Contact(now_name,now_personal_number,now_work_number,now_home_number)
+                val modifiedContact = Contact(
+                    now_name,
+                    now_personal_number,
+                    now_work_number,
+                    now_home_number
+                )
                 viewModel.insertContact(modifiedContact)
 
 
