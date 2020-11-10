@@ -59,6 +59,8 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+
                         android:text="姓名："/>
                     <EditText
                         android:id="@+id/name_dialog"
@@ -74,6 +76,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal">
                     <TextView
+                        android:layout_gravity="center_vertical"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="个人电话："/>
@@ -92,8 +95,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="15dp"
+
                     android:layout_gravity="center_horizontal">
                     <TextView
+                        android:layout_gravity="center_vertical"
+
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="工作电话："/>
@@ -114,6 +120,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal">
                     <TextView
+                        android:layout_gravity="center_vertical"
+
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="住宅电话："/>
