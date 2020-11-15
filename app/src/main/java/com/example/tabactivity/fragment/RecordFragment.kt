@@ -45,7 +45,7 @@ class RecordFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_record, container, false)
         getContentCallLog()
         viewManager = LinearLayoutManager(context)
-        viewAdapter = RecordRecyclerViewAdapter(recordList)
+        viewAdapter = RecordRecyclerViewAdapter(recordList,context)
 
         recyclerView = root.findViewById<RecyclerView>(R.id.record_recyclerview).apply {
             setHasFixedSize(true)

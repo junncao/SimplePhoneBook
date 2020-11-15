@@ -1,17 +1,21 @@
 package com.example.tabactivity.fragment
 
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.tabactivity.R
 import com.example.tabactivity.beanclass.Contact
 import com.example.tabactivity.database.ViewModel
+import kotlinx.android.synthetic.main.fragment_contact_detail.*
 
 
 class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
@@ -23,6 +27,10 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
     lateinit var home_number_view: EditText
     lateinit var left_btn:Button
     lateinit var right_btn:Button
+    lateinit var personal_number_btn:ImageButton
+    lateinit var work_number_btn:ImageButton
+    lateinit var home_number_btn:ImageButton
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context!!);
         val inflater = activity?.getLayoutInflater();
@@ -38,6 +46,9 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
             home_number_view = view?.findViewById<EditText>(R.id.home_number)
             left_btn = view?.findViewById<Button>(R.id.left_btn)
             right_btn = view?.findViewById<Button>(R.id.right_btn)
+            personal_number_btn=view?.findViewById(R.id.personal_number_btn)
+            work_number_btn = view?.findViewById(R.id.work_number_btn)
+            home_number_btn = view?.findViewById(R.id.home_number_btn)
 
         }
 
@@ -113,12 +124,37 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
 
         }
 
+        personal_number_btn.setOnClickListener {
+            if(!contact.personal_number.isNullOrBlank()){
+                call(contact.personal_number)
+            }
+        }
+
+        work_number_btn.setOnClickListener {
+            if(!contact.work_number.isNullOrBlank()){
+                call(contact.work_number)
+            }
+        }
+
+        home_number_btn.setOnClickListener {
+            if(!contact.home_number.isNullOrBlank()){
+                call(contact.home_number)
+            }
+        }
+
 
 
 
 
 
         return builder.create()
+    }
+
+    private fun call(number:String?){
+        val intent = Intent()
+        intent.setAction(Intent.ACTION_CALL)
+        intent.setData(Uri.parse("tel:"+number))
+        startActivity(intent)
     }
 
 

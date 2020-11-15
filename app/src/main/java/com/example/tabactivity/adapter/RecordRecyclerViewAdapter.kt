@@ -1,5 +1,8 @@
 package com.example.phonebook.adapter
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +14,10 @@ import com.example.tabactivity.database.RegionQuery
 import kotlin.collections.ArrayList
 
 
-class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>): RecyclerView.Adapter<RecordRecyclerViewAdapter.RecordViewHolder>() {
+class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>, private val context: Context?): RecyclerView.Adapter<RecordRecyclerViewAdapter.RecordViewHolder>() {
+
+
+
     class RecordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val item: View =view
         val name: TextView = view.findViewById(R.id.name_record)
@@ -21,7 +27,7 @@ class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>): Recy
         val location: TextView = view.findViewById(R.id.location_record)
 
 
-        fun bind(record: Record) {
+        fun bind(record: Record,context: Context?) {
             name.text = if(record.name!=null) record.name else record.number
             date.text = record.date
 
@@ -38,6 +44,13 @@ class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>): Recy
 
             item.setOnClickListener{
 
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_CALL)
+                val data = Uri.parse("tel:"+record.number)
+                intent.setData(data)
+                context?.startActivity(intent)
+
+
             }
 
         }
@@ -53,7 +66,7 @@ class RecordRecyclerViewAdapter(private val recordData: ArrayList<Record>): Recy
         return RecordViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecordViewHolder, position: Int) = holder.bind(recordData[position])
+    override fun onBindViewHolder(holder: RecordViewHolder, position: Int) = holder.bind(recordData[position],context)
 
     override fun getItemCount(): Int = recordData.size
 
