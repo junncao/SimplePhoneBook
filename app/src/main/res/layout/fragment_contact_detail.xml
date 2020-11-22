@@ -47,7 +47,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@color/colorAccent"
+                    android:src="@drawable/ic_baseline_portrait_24"
                     tools:src="@tools:sample/avatars" />
 
                 <LinearLayout

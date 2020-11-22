@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.phonebook.adapter.RecordRecyclerViewAdapter
 import com.example.tabactivity.R
 import com.example.tabactivity.beanclass.Record
+import com.example.tabactivity.beanclass.RecordGroup
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -29,6 +31,7 @@ class RecordFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val callUri: Uri = CallLog.Calls.CONTENT_URI
     private val recordList = ArrayList<Record>()
+    private val recordGroupList = ArrayList<RecordGroup>()
     private val columns = arrayOf(
         CallLog.Calls.CACHED_NAME // 通话记录的联系人
         , CallLog.Calls.NUMBER // 通话记录的电话号码
@@ -45,7 +48,12 @@ class RecordFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_record, container, false)
         getContentCallLog()
         viewManager = LinearLayoutManager(context)
-        viewAdapter = RecordRecyclerViewAdapter(recordList,context)
+        val map = recordList.groupBy { it.number}
+        for((key,value) in map){
+            recordGroupList.add(RecordGroup(key,value))
+        }
+        viewAdapter = RecordRecyclerViewAdapter(recordGroupList,context,parentFragmentManager)
+
 
         recyclerView = root.findViewById<RecyclerView>(R.id.record_recyclerview).apply {
             setHasFixedSize(true)
