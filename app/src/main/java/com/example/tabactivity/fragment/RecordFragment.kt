@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phonebook.adapter.RecordRecyclerViewAdapter
@@ -27,11 +28,13 @@ import kotlin.collections.ArrayList
  */
 class RecordFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val callUri: Uri = CallLog.Calls.CONTENT_URI
     private val recordList = ArrayList<Record>()
-    private val recordGroupList = ArrayList<RecordGroup>()
+    private var recordGroupList = ArrayList<RecordGroup>()
+    private val persist_recordGroupList = ArrayList<RecordGroup>()
     private val columns = arrayOf(
         CallLog.Calls.CACHED_NAME // 通话记录的联系人
         , CallLog.Calls.NUMBER // 通话记录的电话号码
@@ -50,7 +53,9 @@ class RecordFragment : Fragment() {
         viewManager = LinearLayoutManager(context)
         val map = recordList.groupBy { it.number}
         for((key,value) in map){
-            recordGroupList.add(RecordGroup(key,value))
+            val tmp = RecordGroup(key,value)
+            recordGroupList.add(tmp)
+            persist_recordGroupList.add(tmp)
         }
         viewAdapter = RecordRecyclerViewAdapter(recordGroupList,context,parentFragmentManager)
 
@@ -60,6 +65,86 @@ class RecordFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        searchView = root.findViewById<SearchView>(R.id.searchview).apply {
+            this.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    Log.d("RecordFragment","query text:"+query)
+                    val filterList = ArrayList<RecordGroup>()
+                    if (query != null) {
+                        if(query.matches(Regex("^[0-9]*\$"))){
+                            for(record in recordGroupList){
+                                if(record.number.startsWith(query.toString())){
+                                    filterList.add(record)
+                                }
+                            }
+                        }else{
+                            for (record in recordGroupList){
+                                val name = record.group[0].name
+                                    if((name!=null) && name.startsWith(query.toString())){
+                                        filterList.add(record)
+                                    }
+                            }
+                        }
+                        recordGroupList.clear()
+                        filterList.forEach {
+                            recordGroupList.add(it)
+                        }
+                        viewAdapter.notifyDataSetChanged()
+                    }
+
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    Log.d("RecordFragment","query changed:"+query)
+                    val filterList = ArrayList<RecordGroup>()
+                    if (query != null) {
+                        if(query.matches(Regex("^[0-9]*\$"))){
+                            for(record in persist_recordGroupList){
+                                if(record.number.startsWith(query.toString())){
+                                    filterList.add(record)
+                                }
+                            }
+                        }else{
+                            for (record in persist_recordGroupList){
+                                val name = record.group[0].name
+                                if((name!=null) && name.startsWith(query.toString())){
+                                    filterList.add(record)
+                                }
+                            }
+                        }
+                        recordGroupList.clear()
+                        filterList.forEach {
+                            recordGroupList.add(it)
+                        }
+                        viewAdapter.notifyDataSetChanged()
+                    }
+
+                    return true
+                }
+
+            })
+            setOnCloseListener(object :SearchView.OnCloseListener{
+                override fun onClose(): Boolean {
+                    searchView.clearFocus()
+                    searchView.onActionViewCollapsed()
+                    recordGroupList.clear()
+                    persist_recordGroupList.forEach {
+                        recordGroupList.add(it)
+                    }
+                    viewAdapter.notifyDataSetChanged()
+
+                    return true
+                }
+
+            })
+
+            clearFocus()
+
+
+        }
+
         return root
     }
 
