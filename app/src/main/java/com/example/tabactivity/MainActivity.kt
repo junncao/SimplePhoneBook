@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.READ_CALL_LOG,
-                Manifest.permission.WRITE_CALL_LOG
+                Manifest.permission.WRITE_CALL_LOG,
+                Manifest.permission.INTERNET
             )
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {

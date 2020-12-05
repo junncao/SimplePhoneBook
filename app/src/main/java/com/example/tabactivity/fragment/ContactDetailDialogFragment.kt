@@ -9,27 +9,38 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tabactivity.R
 import com.example.tabactivity.beanclass.Contact
 import com.example.tabactivity.database.ViewModel
+import com.example.tabactivity.ui.place.PlaceAdapter
+import com.sunnyweather.android.ui.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_contact_detail.*
+import kotlinx.android.synthetic.main.fragment_place.*
 
 
 class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
     lateinit var viewModel: ViewModel
-
+    private lateinit var adapter: PlaceAdapter
     lateinit var name_view: EditText
     lateinit var personal_number_view: EditText
     lateinit var work_number_view: EditText
     lateinit var home_number_view: EditText
+    lateinit var see_weather:Button
     lateinit var left_btn:Button
     lateinit var right_btn:Button
     lateinit var personal_number_btn:ImageButton
     lateinit var work_number_btn:ImageButton
     lateinit var home_number_btn:ImageButton
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context!!);
@@ -49,7 +60,7 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
             personal_number_btn=view?.findViewById(R.id.personal_number_btn)
             work_number_btn = view?.findViewById(R.id.work_number_btn)
             home_number_btn = view?.findViewById(R.id.home_number_btn)
-
+            see_weather = view.findViewById(R.id.see_weather)
         }
 
         personal_number_view?.apply {
@@ -142,6 +153,12 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
             }
         }
 
+        see_weather.setOnClickListener {
+            val intent = Intent(context,WeatherMainActivity::class.java)
+            intent.putExtra("name",contact.name)
+            startActivity(intent)
+        }
+
 
 
 
@@ -158,11 +175,5 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
     }
 
 
-
-
-
-
-
-
-
     }
+

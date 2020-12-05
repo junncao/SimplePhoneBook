@@ -164,9 +164,15 @@
 
             </LinearLayout>
             </LinearLayout>
-
+            <Button
+                android:id="@+id/see_weather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="查看对方城市天气情况"/>
 
         </LinearLayout>
+
+
 
     </ScrollView>
 
