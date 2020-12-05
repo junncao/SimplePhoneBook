@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tabactivity.MainActivity
 import com.example.tabactivity.R
+import com.example.tabactivity.fragment.WeatherMainActivity
 import com.example.tabactivity.ui.weather.WeatherActivity
 import com.sunnyweather.android.ui.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
@@ -31,8 +32,9 @@ class PlaceFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (activity is MainActivity && viewModel.isPlaceSaved()) {
-            val place = viewModel.getSavedPlace()
+        val name = (activity as WeatherMainActivity).data
+        if (activity is WeatherMainActivity && viewModel.isPlaceSaved(name)) {
+            val place = viewModel.getSavedPlace(name)
             val intent = Intent(context, WeatherActivity::class.java).apply {
                 putExtra("location_lng", place.location.lng)
                 putExtra("location_lat", place.location.lat)
@@ -44,7 +46,7 @@ class PlaceFragment : Fragment() {
         }
         val layoutManager = LinearLayoutManager(activity)
         recyclerView_palce.layoutManager = layoutManager
-        adapter = PlaceAdapter(this, viewModel.placeList)
+        adapter = PlaceAdapter(name,this, viewModel.placeList)
         recyclerView_palce.adapter = adapter
         searchPlaceEdit.addTextChangedListener { editable ->
             val content = editable.toString()
@@ -71,5 +73,6 @@ class PlaceFragment : Fragment() {
             }
         })
     }
+
 
 }

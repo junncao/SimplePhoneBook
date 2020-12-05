@@ -48,11 +48,11 @@ object Repository {
         }
     }
 
-    fun savePlace(place: Place) = PlaceDao.savePlace(place)
+    fun savePlace(name:String,place: Place) = PlaceDao.savePlace(name,place)
 
-    fun getSavedPlace() = PlaceDao.getSavedPlace()
+    fun getSavedPlace(name:String) = PlaceDao.getSavedPlace(name)
 
-    fun isPlaceSaved() = PlaceDao.isPlaceSaved()
+    fun isPlaceSaved(name:String) = PlaceDao.isPlaceSaved(name)
 
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
         liveData<Result<T>>(context) {

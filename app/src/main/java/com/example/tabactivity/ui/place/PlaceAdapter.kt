@@ -15,7 +15,7 @@ import com.example.tabactivity.ui.weather.WeatherActivity
 
 import kotlinx.android.synthetic.main.activity_weather.*
 
-class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+class PlaceAdapter(val name:String,private val fragment: PlaceFragment, private val placeList: List<Place>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val placeName: TextView = view.findViewById(R.id.placeName)
@@ -44,6 +44,7 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
                 fragment.startActivity(intent)
                 activity?.finish()
             }
+            fragment.viewModel.savePlace(name,place)
 
         }
         return holder
