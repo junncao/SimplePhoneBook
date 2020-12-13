@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    app:cardBackgroundColor="@color/RecordCardColor"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+    app:cardCornerRadius="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
     android:orientation="vertical"
-
     android:layout_width="450dp"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        >
         <TextView
             android:textSize="18sp"
+            android:fontFamily="monospace"
             android:id="@+id/date_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2020-11-11 13:13:13"/>
         <TextView
+            android:fontFamily="monospace"
             android:layout_width="4dp"
             android:layout_height="1dp"/>
         <TextView
+            android:fontFamily="monospace"
             android:textSize="16sp"
             android:id="@+id/type_record"
             android:layout_width="wrap_content"
@@ -36,10 +49,13 @@
 
     </LinearLayout>
     <TextView
+        android:fontFamily="monospace"
         android:textSize="16sp"
+        android:layout_margin="10dp"
         android:id="@+id/location_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="浙江省杭州市"/>
 
 </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

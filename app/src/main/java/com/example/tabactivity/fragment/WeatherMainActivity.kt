@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tabactivity.R
 
 class WeatherMainActivity: AppCompatActivity() {
-    lateinit var data:String
+    lateinit var person_name:String
+    lateinit var person_phone:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_weather)
-        data = intent.getStringExtra("name").toString()
-    fun getData(): String {
-        return data
+        person_name = intent.getStringExtra("name").toString()
+        person_phone = intent.getStringExtra("phone").toString()
     }
-    }
+
+
 }

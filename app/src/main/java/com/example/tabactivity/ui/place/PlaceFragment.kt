@@ -32,13 +32,16 @@ class PlaceFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val name = (activity as WeatherMainActivity).data
+        val name = (activity as WeatherMainActivity).person_name
+        val phone = (activity as WeatherMainActivity).person_phone
         if (activity is WeatherMainActivity && viewModel.isPlaceSaved(name)) {
             val place = viewModel.getSavedPlace(name)
             val intent = Intent(context, WeatherActivity::class.java).apply {
                 putExtra("location_lng", place.location.lng)
                 putExtra("location_lat", place.location.lat)
                 putExtra("place_name", place.name)
+                putExtra("person_name",name)
+                putExtra("person_phone",phone)
             }
             startActivity(intent)
             activity?.finish()
@@ -46,7 +49,7 @@ class PlaceFragment : Fragment() {
         }
         val layoutManager = LinearLayoutManager(activity)
         recyclerView_palce.layoutManager = layoutManager
-        adapter = PlaceAdapter(name,this, viewModel.placeList)
+        adapter = PlaceAdapter(name,phone,this, viewModel.placeList)
         recyclerView_palce.adapter = adapter
         searchPlaceEdit.addTextChangedListener { editable ->
             val content = editable.toString()

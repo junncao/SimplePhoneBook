@@ -1,7 +1,9 @@
 package com.example.tabactivity.ui.weather
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +13,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.tabactivity.R
+import com.example.tabactivity.logic.MessageGreeting
 import com.example.tabactivity.logic.model.Weather
 import com.example.tabactivity.logic.model.getSky
-
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.forecast.*
 import kotlinx.android.synthetic.main.life_index.*
@@ -26,17 +27,21 @@ import kotlinx.android.synthetic.main.now.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class WeatherActivity : AppCompatActivity() {
 
     val viewModel by lazy { ViewModelProviders.of(this).get(WeatherViewModel::class.java) }
-
+    lateinit var weatherInfo:String
+    lateinit var city_name:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            val decorView = window.decorView
-//            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//            window.statusBarColor = Color.TRANSPARENT
-//        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            val decorView = window.decorView
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            window.statusBarColor = Color.TRANSPARENT
+        }
+        val person_name = intent.getStringExtra("person_name")
+        val person_phone = intent.getStringExtra("person_phone")
         setContentView(R.layout.activity_weather)
         if (viewModel.locationLng.isEmpty()) {
             viewModel.locationLng = intent.getStringExtra("location_lng") ?: ""
@@ -46,6 +51,7 @@ class WeatherActivity : AppCompatActivity() {
         }
         if (viewModel.placeName.isEmpty()) {
             viewModel.placeName = intent.getStringExtra("place_name") ?: ""
+            city_name = intent.getStringExtra("place_name") ?: ""
         }
         viewModel.weatherLiveData.observe(this, Observer { result ->
             val weather = result.getOrNull()
@@ -63,7 +69,17 @@ class WeatherActivity : AppCompatActivity() {
             refreshWeather()
         }
         navBtn.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+//            drawerLayout.openDrawer(GravityCompat.START)
+            val smsTo = Uri.parse("smsto:"+person_phone)
+            val intent = Intent(Intent.ACTION_SENDTO, smsTo)
+            val smsBody = MessageGreeting.getMessage(weatherInfo,
+                person_name.toString(),city_name
+            )
+            intent.putExtra("sms_body", smsBody)
+
+            startActivity(intent)
+
+
         }
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(newState: Int) {}
@@ -92,6 +108,7 @@ class WeatherActivity : AppCompatActivity() {
         val currentTempText = "${realtime.temperature.toInt()} ℃"
         currentTemp.text = currentTempText
         currentSky.text = getSky(realtime.skycon).info
+        weatherInfo = realtime.skycon
         val currentPM25Text = "空气指数 ${realtime.airQuality.aqi.chn.toInt()}"
         currentAQI.text = currentPM25Text
         nowLayout.setBackgroundResource(getSky(realtime.skycon).bg)

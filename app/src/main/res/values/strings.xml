@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TabActivity</string>
+    <string name="app_name">PhoneBook</string>
     <string name="通话记录">Tab 1</string>
     <string name="联系人">Tab 2</string>
     <!-- TODO: Remove or change this placeholder text -->

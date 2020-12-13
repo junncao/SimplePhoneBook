@@ -16,9 +16,13 @@ interface ContactDao {
     @Query("SELECT * FROM contacts_table WHERE name LIKE :name")
     fun findByName(name: String): Contact
 
+    @Query("SELECT * FROM contacts_table WHERE personal_number=:number OR home_number=:number OR work_number=:number")
+    fun findByNumber(number:String):Contact?
+
     @Insert
     fun insert(contact: Contact)
 
     @Delete
     fun delete(contact: Contact)
+
 }

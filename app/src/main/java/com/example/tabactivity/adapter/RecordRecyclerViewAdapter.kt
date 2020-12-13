@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabactivity.R
 import com.example.tabactivity.beanclass.RecordGroup
+import com.example.tabactivity.database.AppDatabase
 import com.example.tabactivity.database.RegionQuery
 import com.example.tabactivity.fragment.recordDetailDialogFragment
 import kotlin.collections.ArrayList
@@ -33,7 +34,14 @@ class RecordRecyclerViewAdapter(private val recordData: ArrayList<RecordGroup>, 
 
         fun bind(group: RecordGroup, context: Context?,parentFragmentManager: FragmentManager) {
             val data = group.group[0]
-            name.text = if(data.name!=null) data.name else data.number
+            val database = AppDatabase.getInstance(context!!)
+            val contact_name = database.contactDao.findByNumber(data.number)
+            if (contact_name!=null){
+                name.text = contact_name.name
+            }else{
+                name.text = data.number
+            }
+
             date.text = data.date
 
             type.text = when(data.type){

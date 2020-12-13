@@ -9,8 +9,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:src="@color/colorAccent"
-        tools:src="@tools:sample/avatars" />
+        android:src="@drawable/ic_baseline_portrait_24"
+         />
     <EditText
         android:id="@+id/name_dialog"
         android:layout_marginTop="20dp"

@@ -156,6 +156,17 @@ class ContactDetailDialogFragment(val contact: Contact): DialogFragment() {
         see_weather.setOnClickListener {
             val intent = Intent(context,WeatherMainActivity::class.java)
             intent.putExtra("name",contact.name)
+            var phone = ""
+            if(contact.personal_number.isNullOrBlank()){
+                if(contact.home_number.isNullOrBlank()){
+                    phone = contact.work_number.toString()
+                }else{
+                    phone = contact.home_number
+                }
+            }else{
+                phone = contact.personal_number
+            }
+            intent.putExtra("phone",phone)
             startActivity(intent)
         }
 

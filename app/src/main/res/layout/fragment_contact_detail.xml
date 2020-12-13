@@ -166,7 +166,10 @@
             </LinearLayout>
             <Button
                 android:id="@+id/see_weather"
+                android:background="@color/seeWeatherColor"
                 android:layout_width="match_parent"
+                android:fontFamily="monospace"
+                android:textColor="@color/design_default_color_on_primary"
                 android:layout_height="wrap_content"
                 android:text="查看对方城市天气情况"/>
 
