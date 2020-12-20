@@ -25,11 +25,9 @@
 
 电话本采用两个Tab加ViewPager实现，交互友好。电话记录直接从手机读取，然后在recyclerview中填充进去，联系人会从数据库中读取和存储。
 
-<img src="/Users/caojun/Library/Application Support/typora-user-images/image-20201213120609563.png" alt="image-20201213120609563" style="zoom:50%;" />
 
 天气模块采用MVVM架构，结构清晰。获取天气信息采用的网上的免费api--彩云天气API，通过retrofit进行请求和json的解码工作。初次获取联系人天气会要求输入联系人的地点，然后保存在sharedpreference中，下次可以直接通过联系人名字获取。
 
-<img src="/Users/caojun/Library/Application Support/typora-user-images/image-20201213120715041.png" alt="image-20201213120715041" style="zoom:50%;" />
 
 ### 用到的技术：
 
@@ -56,7 +54,3 @@
 ### 任务分工：
 
 
-
-### 工作日志：
-
-![image-20201220152145436](/Users/caojun/Downloads/image-20201220152145436.png)
